@@ -66,7 +66,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'com.github.piusalfred.ikonfx.IkonFXApp'
+    mainClassName = 'com.github.piusalfred.ikonfx.App'
 }
 
 javafx {

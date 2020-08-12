@@ -5,6 +5,26 @@
     -fx-icon-color: #B8BB26
 }
 
+.font-icon-128,
+.font-icon-64,
+.font-icon-48,
+.font-icon-32
+{
+
+    -fx-icon-color: #B8BB26
+}
+
+.text-field{
+    -fx-text-fill: derive(#282828,90%);
+    -fx-background-color: #282828;
+    -fx-border-color:derive(#B8BB26,60%);
+    -fx-border-radius: 2;
+}
+
+.label{
+    -fx-text-fill: derive(#282828,90%);
+}
+
 #main-view{
     -fx-background-color: #282828;
 }

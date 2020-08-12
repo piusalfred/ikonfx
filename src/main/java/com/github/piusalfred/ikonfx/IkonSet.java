@@ -39,16 +39,15 @@ import org.kordamp.ikonli.weathericons.WeatherIcons;
 import org.kordamp.ikonli.websymbols.Websymbols;
 import org.kordamp.ikonli.zondicons.Zondicons;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.EnumSet.allOf;
 
-public class IkonSet{
+public class IkonSet {
+
+    //AllIkons
     public static final List<FontIcon> DASHICONS = GetAllIkonsByType(Dashicons.class, allOf(Dashicons.class));
     public static final List<FontIcon> DEVICONS = GetAllIkonsByType(Devicons.class, allOf(Devicons.class));
     public static final List<FontIcon> ELUSIVE_ICONS = GetAllIkonsByType(Elusive.class, allOf(Elusive.class));
@@ -87,20 +86,20 @@ public class IkonSet{
     public static final List<FontIcon> ZONDICONS = GetAllIkonsByType(Zondicons.class, allOf(Zondicons.class));
 
 
-    public static List<FontIcon> AllIkons(){
+    public static List<FontIcon> AllIkons() {
 
-        return Stream.of(DASHICONS,MAKI2_ICONS,ZONDICONS,WEBSYMBOLS,WEATHER_ICONS,TYPICONS,THEMIFY_ICONS,RUNESTROICONS,PAYMENT_FONTS,
-                OPENICONIC,OCTICONS,OCIICONS,METRIZE_ICONS,MATERIAL_DESIGN_ICONS,MATERIAL_ICONS,MAPICONS,MAKI_ICONS,LINECONS,
-                LIGATURE_SYMBOLS,IONICONS,DEVICONS,ELUSIVE_ICONS,ENTYPO_ICONS,FEATHER_ICONS,FONTAWESOME_ICONS,FONTAWESOME_BRANDS_ICONS,
-                FONTAWESOME_SOLID_ICONS,FONTAWESOME_REGULAR_ICONS,FONTELICO_ICONS, FOUNDATION_ICONS,HAWCONS_FILLED_ICONS,
-                HAWCONS_STROKE_DESIGN_ICONS, ICOMOON,IONICONS4_MATERIAL_ICONS,IONICONS4_IOS_ICONS, IONICONS4_LOGO_ICONS
+        return Stream.of(DASHICONS, MAKI2_ICONS, ZONDICONS, WEBSYMBOLS, WEATHER_ICONS, TYPICONS, THEMIFY_ICONS, RUNESTROICONS, PAYMENT_FONTS,
+                OPENICONIC, OCTICONS, OCIICONS, METRIZE_ICONS, MATERIAL_DESIGN_ICONS, MATERIAL_ICONS, MAPICONS, MAKI_ICONS, LINECONS,
+                LIGATURE_SYMBOLS, IONICONS, DEVICONS, ELUSIVE_ICONS, ENTYPO_ICONS, FEATHER_ICONS, FONTAWESOME_ICONS, FONTAWESOME_BRANDS_ICONS,
+                FONTAWESOME_SOLID_ICONS, FONTAWESOME_REGULAR_ICONS, FONTELICO_ICONS, FOUNDATION_ICONS, HAWCONS_FILLED_ICONS,
+                HAWCONS_STROKE_DESIGN_ICONS, ICOMOON, IONICONS4_MATERIAL_ICONS, IONICONS4_IOS_ICONS, IONICONS4_LOGO_ICONS
         ).flatMap(Collection::stream).collect(Collectors.toList());
     }
 
     public static List<FontIcon> GetAllIkonsByType(Class<? extends Ikon> iconFontClass, EnumSet<? extends Ikon> enumSet) {
 
         List<FontIcon> fontIcons = new ArrayList<>();
-      //  System.out.println(iconFontClass.getSimpleName());
+
 
         for (Ikon value : enumSet) {
             FontIcon icon = FontIcon.of(value);
@@ -109,6 +108,15 @@ public class IkonSet{
         }
 
         return fontIcons;
+    }
+
+    public static Map<String, List<FontIcon>> allIkonsMap() {
+
+        List<FontIcon> allFontIcons = AllIkons();
+
+        return allFontIcons
+                .stream()
+                .collect(Collectors.groupingBy(fontIcon -> fontIcon.getIconCode().getClass().getSimpleName()));
     }
 }
 

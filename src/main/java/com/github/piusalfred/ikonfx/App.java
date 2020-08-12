@@ -5,10 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class App extends Application {
 
@@ -36,6 +32,8 @@ public class App extends Application {
     @Override
     public void init() throws Exception {
         super.init();
+
+        IkonSet.allIkonsMap().forEach((s, fontIcons) -> System.out.println(s));
 
     }
 

@@ -1,11 +1,16 @@
 package com.github.piusalfred.ikonfx;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import org.controlsfx.control.CheckComboBox;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -15,14 +20,29 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
 
+    final ObservableList<String> iconTypes = FXCollections.observableArrayList();
     @FXML
     public GridPane gridPane;
-
     @FXML
     public AnchorPane mainView;
-
     @FXML
     public ScrollPane scrollPane;
+    @FXML
+    public CheckComboBox<String> cmbChooseIconType;
+    @FXML
+    public TextField txtSearchBox;
+    @FXML
+    public FontIcon fontIcon128;
+    @FXML
+    public Label lbIconLiteral;
+    @FXML
+    public Label lbIconType;
+    @FXML
+    public FontIcon fontIcon64;
+    @FXML
+    public FontIcon fontIcon48;
+    @FXML
+    public FontIcon fontIcon32;
 
     /**
      * Called to initialize a controller after its root element has been
@@ -35,7 +55,15 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-       List<FontIcon> fontIconList = IkonSet.AllIkons();
+
+
+        iconTypes.add("All Icons");
+
+        IkonSet.allIkonsMap().forEach((s, fontIcons) -> System.out.println(iconTypes.add(s)));
+
+        cmbChooseIconType.getItems().addAll(iconTypes);
+
+        List<FontIcon> fontIconList = IkonSet.AllIkons();
         int column = 0;
         int row = 0;
         int index = 0;
@@ -54,5 +82,7 @@ public class MainViewController implements Initializable {
                 row++;
             }
         }
+
+
     }
 }
