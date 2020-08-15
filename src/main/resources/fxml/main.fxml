@@ -14,11 +14,11 @@
    <AnchorPane layoutX="999.0" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="720.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <CheckComboBox fx:id="cmbChooseIconType" layoutX="25.0" layoutY="85.0" prefHeight="32.0" prefWidth="229.0" title="Choose Icon Type" AnchorPane.leftAnchor="25.5" AnchorPane.rightAnchor="25.5" />
       <TextField fx:id="txtSearchBox" layoutX="25.0" layoutY="29.0" prefHeight="33.0" prefWidth="229.0" promptText="Search Icon Here" AnchorPane.leftAnchor="25.5" AnchorPane.rightAnchor="25.5" />
-      <FontIcon fx:id="fontIcon128" iconLiteral="mdi-account" iconSize="128" layoutX="76.0" layoutY="477.0" styleClass="font-icon-128" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="76.0" />
-      <Label fx:id="lbIconLiteral" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="515.0" text="Material Design" textAlignment="CENTER" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" />
-      <Label fx:id="lbIconType" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="561.0" text="Material Design" textAlignment="CENTER" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" />
-      <FontIcon fx:id="fontIcon64" iconLiteral="mdi-account" iconSize="64" layoutX="108.0" layoutY="349.0" styleClass="font-icon-64" />
+      <FontIcon fx:id="fontIcon128" iconLiteral="mdi-account" iconSize="128" layoutX="76.0" layoutY="502.0" styleClass="font-icon-128" AnchorPane.leftAnchor="76.0" AnchorPane.rightAnchor="76.0" />
+      <Label fx:id="lbIconLiteral" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="542.0" text="Material Design" textAlignment="CENTER" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+      <Label fx:id="lbIconType" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="585.0" text="Material Design" textAlignment="CENTER" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+      <FontIcon fx:id="fontIcon64" iconLiteral="mdi-account" iconSize="64" layoutX="108.0" layoutY="357.0" styleClass="font-icon-64" />
       <FontIcon fx:id="fontIcon48" iconLiteral="mdi-account" iconSize="48" layoutX="116.0" layoutY="268.0" styleClass="font-icon-48" />
-      <FontIcon fx:id="fontIcon32" iconLiteral="mdi-account" iconSize="32" layoutX="124.0" layoutY="200.0" styleClass="font-icon-32" />
+      <FontIcon fx:id="fontIcon32" iconLiteral="mdi-account" iconSize="32" layoutX="124.0" layoutY="191.0" styleClass="font-icon-32" />
    </AnchorPane>
 </fx:root>

@@ -1,7 +1,9 @@
 package com.github.piusalfred.ikonfx;
 
-import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -11,13 +13,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.GridView;
-import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.feather.Feather;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
-import java.util.function.Consumer;
+import java.util.ArrayList;
 
 public class BrowserView extends AnchorPane {
+
+    final ObservableList<String> iconTypes = FXCollections.observableArrayList();
 
     public GridView<FontIcon> ikonsGridView;
 
@@ -54,6 +58,8 @@ public class BrowserView extends AnchorPane {
 
         this.browserModel = browserModel;
 
+
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(BrowserModel.MAIN_VIEW_FXML));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -65,14 +71,43 @@ public class BrowserView extends AnchorPane {
 
         this.getStylesheets().add(getClass().getResource(BrowserModel.APP_STYLES).toExternalForm());
 
+
+        iconTypes.add("All Types");
+        iconTypes.addAll(new ArrayList<>(IkonSet.allIkonsMap().keySet()));
+
+        cmbChooseIconType.getItems().addAll(iconTypes);
+        //select first value
+        cmbChooseIconType.getCheckModel().check(0);
+
+
+        cmbChooseIconType.getCheckModel().getCheckedItems()
+                .addListener((ListChangeListener<String>) c -> {
+
+                    //Reset the search box
+                    txtSearchBox.setText("");
+
+                    //Update the Browser todo
+
+
+                });
+
+        browserModel.selectedIkonProperty().addListener(
+                (ObservableValue<? extends FontIcon>
+                         observable, FontIcon oldValue, FontIcon newValue) -> {
+
+                    fontIcon32.setIconLiteral(newValue.getIconLiteral());
+                    fontIcon128.setIconLiteral(newValue.getIconLiteral());
+                    fontIcon48.setIconLiteral(newValue.getIconLiteral());
+                    fontIcon64.setIconLiteral(newValue.getIconLiteral());
+
+
+                });
+
         browserModel.selectedIkonProperty().set(new FontIcon(Feather.FTH_CAMERA));
 
-
-
-        fontIcon32.iconCodeProperty().bind(browserModel.selectedIkonProperty().get().iconCodeProperty());
-        fontIcon128.iconCodeProperty().bind(browserModel.selectedIkonProperty().get().iconCodeProperty());
-        fontIcon48.iconCodeProperty().bind(browserModel.selectedIkonProperty().get().iconCodeProperty());
-        fontIcon64.iconCodeProperty().bind(browserModel.selectedIkonProperty().get().iconCodeProperty());
+        //labels initial display
+        lbIconType.setText(browserModel.selectedIkonProperty().get().getIconCode().getClass().getSimpleName());
+        lbIconLiteral.setText(browserModel.selectedIkonProperty().get().getIconLiteral());
 
        // init
         init();
@@ -93,13 +128,10 @@ public class BrowserView extends AnchorPane {
         ikonsGridView.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
             if (event.getTarget() instanceof FontIcon) {
 
-
                 FontIcon target = (FontIcon) event.getTarget();
-
-                Platform.runLater(() -> browserModel.selectedIkonProperty().set(new FontIcon(Feather.FTH_CODEPEN)));
-
-
-
+                browserModel.selectedIkonProperty().set(target);
+                lbIconType.setText(target.getIconCode().getClass().getSimpleName());
+                lbIconLiteral.setText(target.getIconLiteral());
             }
         });
 
@@ -109,12 +141,10 @@ public class BrowserView extends AnchorPane {
 
         browserModel.getelectedFontIcons().setAll(IkonSet.AllIkons());
 
-        browserModel.getelectedFontIcons().forEach(new Consumer<FontIcon>() {
-            @Override
-            public void accept(FontIcon fontIcon) {
-              //  fontIcon.addE
-            }
-        });
+      /*  browserModel.getelectedFontIcons()
+                .forEach(fontIcon -> fontIcon.setOnMousePressed(event -> {
+                    browserModel.selectedIkonProperty().set((FontIcon)event.getTarget());
+        }));*/
 
         ikonsGridView.setItems(FXCollections.observableArrayList(browserModel.getelectedFontIcons()));
 

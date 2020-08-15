@@ -13,17 +13,34 @@ repositories {
 
 javafx {
     version = "14.0.1"
-    modules = [ 'javafx.controls','javafx.fxml','javafx.base','javafx.graphics', 'javafx.media' ]
+    modules = [
+    'javafx.controls','javafx.fxml','javafx.base','javafx.graphics', 'javafx.media'
+    ]
+}
+
+ext {
+   
+   appName = "IkonFX"
+    appLauncher = "ikonfx"
+    appPackaging = "ikonfx"
+    appModuleName = "com.github.piusalfred.ikonfx"
+    appMainClass = "com.github.piusalfred.ikonfx.App"
 }
 
 mainClassName = "com.github.piusalfred.ikonfx.App"
 
 
 jlink {
+    imageZip = project.file("${buildDir}/distributions/${appPackaging}-${javafx.platform.classifier}.zip")
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
         name = 'ikonfx'
+        jvmArgs = [
+            "--add-opens=javafx.controls/javafx.scene.control.skin=org.controlsfx.controls",
+            "--add-opens=javafx.graphics/javafx.scene=org.controlsfx.controls"
+        ]
     }
+    
 }
 
 dependencies {
