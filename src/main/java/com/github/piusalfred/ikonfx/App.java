@@ -3,12 +3,96 @@
  */
 package com.github.piusalfred.ikonfx;
 
-public class App {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class App extends Application {
+
+    /**
+     * Constructs a new {@code Application} instance.
+     */
+    public App() {
+        super();
+    }
+
+    /**
+     * The application initialization method. This method is called immediately
+     * after the Application class is loaded and constructed. An application may
+     * override this method to perform initialization prior to the actual starting
+     * of the application.
+     *
+     * <p>
+     * The implementation of this method provided by the Application class does nothing.
+     * </p>
+     *
+     * <p>
+     * NOTE: This method is not called on the JavaFX Application Thread. An
+     * application must not construct a Scene or a Stage in this
+     * method.
+     * An application may construct other JavaFX objects in this method.
+     * </p>
+     *
+     * @throws Exception if something goes wrong
+     */
+    @Override
+    public void init() throws Exception {
+        super.init();
+    }
+
+    /**
+     * This method is called when the application should stop, and provides a
+     * convenient place to prepare for application exit and destroy resources.
+     *
+     * <p>
+     * The implementation of this method provided by the Application class does nothing.
+     * </p>
+     *
+     * <p>
+     * NOTE: This method is called on the JavaFX Application Thread.
+     * </p>
+     *
+     * @throws Exception if something goes wrong
+     */
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+    }
+
+    /**
+     * The main entry point for all JavaFX applications.
+     * The start method is called after the init method has returned,
+     * and after the system is ready for the application to begin running.
+     *
+     * <p>
+     * NOTE: This method is called on the JavaFX Application Thread.
+     * </p>
+     *
+     * @param primaryStage the primary stage for this application, onto which
+     *                     the application scene can be set.
+     *                     Applications may create other stages, if needed, but they will not be
+     *                     primary stages.
+     * @throws Exception if something goes wrong
+     */
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+
+
+        BrowserModel model = new BrowserModel();
+        BrowserView view = new BrowserView(model);
+        Scene scene = new Scene(view, BrowserModel.DEFAULT_WITH, BrowserModel.DEFAULT_HEIGHT);
+        primaryStage.setTitle(BrowserModel.APP_NAME + " " +  BrowserModel.APP_VERSION);
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+
+    }
+
     public String getGreeting() {
         return "Hello world.";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+       launch(args);
     }
 }
