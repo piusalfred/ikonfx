@@ -1,6 +1,8 @@
 package com.github.piusalfred.ikonfx;
 
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,7 +16,7 @@ public class BrowserModel {
     public static final String APP_NAME = "IkonFX";
     public static final String APP_VERSION ="1.0.0" ;
     public static final String MAIN_VIEW_FXML = "/fxml/main.fxml";
-    private static final int DEFAULT_IKON_SIZE = 24;
+    public static final int DEFAULT_IKON_SIZE = 24;
 
 
     private ObservableList<FontIcon> selectedFontIcons;
@@ -23,8 +25,16 @@ public class BrowserModel {
 
     private ObjectProperty<Number> ikonSizeProperty;
 
+    private ObservableValue<ObservableList<FontIcon>> observableFontIconsList;
 
-    public ObservableList<FontIcon> getelectedFontIcons() {
+
+
+    public BrowserModel() {
+
+
+    }
+
+    public ObservableList<FontIcon> getSelectedFontIcons() {
         if (selectedFontIcons == null) {
             selectedFontIcons = FXCollections.observableArrayList();
         }

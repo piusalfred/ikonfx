@@ -72,10 +72,9 @@ public class App extends Application {
      *                     the application scene can be set.
      *                     Applications may create other stages, if needed, but they will not be
      *                     primary stages.
-     * @throws Exception if something goes wrong
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
 
         BrowserModel model = new BrowserModel();
@@ -88,9 +87,6 @@ public class App extends Application {
 
     }
 
-    public String getGreeting() {
-        return "Hello world.";
-    }
 
     public static void main(String[] args) {
        launch(args);

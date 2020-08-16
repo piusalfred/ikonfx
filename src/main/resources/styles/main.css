@@ -27,13 +27,30 @@
     -fx-text-fill: derive(#282828,90%);
 }
 
+
+.check-box > .box {
+    -fx-background-color: derive(#282828,90%);
+
+}
+
+.check-box:selected > .box > .mark,
+.check-box:indeterminate > .box > .mark{
+    -fx-background-color: #282828;
+
+}
+
+
+
 .combo-box-base,
 .combo-box{
     -fx-background-color: #282828;
     -fx-text-fill: derive(#282828,90%);
-    -fx-background-color: #282828;
     -fx-border-color:derive(#B8BB26,60%);
     -fx-border-radius: 2;
+}
+
+.combo-box .list-cell{
+    -fx-text-fill:derive(#282828,90%);
 }
 
 .list-cell,
@@ -42,8 +59,16 @@
     -fx-background-color: #282828;
 }
 
-.text{
-    -fx-font-fill: red;
+.list-view{
+    -fx-background-color: #282828;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover{
+    -fx-text-fill: derive(#282828,90%);
+}
+
+.combo-box-popup .list-view .list-cell{
+    -fx-text-fill: derive(#282828,90%);
 }
 
 #main-view{

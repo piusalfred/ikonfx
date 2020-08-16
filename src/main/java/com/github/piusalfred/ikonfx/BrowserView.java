@@ -1,5 +1,8 @@
 package com.github.piusalfred.ikonfx;
 
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -18,46 +21,37 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BrowserView extends AnchorPane {
 
+    public final BrowserModel browserModel;
     final ObservableList<String> iconTypes = FXCollections.observableArrayList();
-
     public GridView<FontIcon> ikonsGridView;
-
     @FXML
     private ScrollPane scrollPane;
-
     @FXML
     private CheckComboBox<String> cmbChooseIconType;
-
     @FXML
     private TextField txtSearchBox;
-
     @FXML
     private FontIcon fontIcon128;
-
     @FXML
     private Label lbIconLiteral;
-
     @FXML
     private Label lbIconType;
-
     @FXML
     private FontIcon fontIcon64;
-
     @FXML
     private FontIcon fontIcon48;
-
     @FXML
     private FontIcon fontIcon32;
-
-    public final BrowserModel browserModel;
 
     public BrowserView(BrowserModel browserModel) {
 
         this.browserModel = browserModel;
-
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(BrowserModel.MAIN_VIEW_FXML));
@@ -72,21 +66,33 @@ public class BrowserView extends AnchorPane {
         this.getStylesheets().add(getClass().getResource(BrowserModel.APP_STYLES).toExternalForm());
 
 
-        iconTypes.add("All Types");
+        //iconTypes.add("All Types");
         iconTypes.addAll(new ArrayList<>(IkonSet.allIkonsMap().keySet()));
 
         cmbChooseIconType.getItems().addAll(iconTypes);
         //select first value
-        cmbChooseIconType.getCheckModel().check(0);
+        //  cmbChooseIconType.getCheckModel().check(0);
 
 
         cmbChooseIconType.getCheckModel().getCheckedItems()
                 .addListener((ListChangeListener<String>) c -> {
 
+
+                    ObservableList<String> checkedItems = (ObservableList<String>) c.getList();
+                    
                     //Reset the search box
                     txtSearchBox.setText("");
 
                     //Update the Browser todo
+
+                    boolean nonSelected = false;
+
+                    if (c.getList().isEmpty()) {
+                        nonSelected = true;
+                    }
+
+                    boolean finalNonSelected = nonSelected;
+                    Platform.runLater(() -> updateGridView(checkedItems, finalNonSelected));
 
 
                 });
@@ -109,15 +115,45 @@ public class BrowserView extends AnchorPane {
         lbIconType.setText(browserModel.selectedIkonProperty().get().getIconCode().getClass().getSimpleName());
         lbIconLiteral.setText(browserModel.selectedIkonProperty().get().getIconLiteral());
 
-       // init
+
+        txtSearchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+
+        });
+
+        // init
         init();
     }
 
 
+    //fixme
+    private void updateGridView(ObservableList<String> selectedIkons, boolean noneSelected) {
 
-    public void init(){
+        if (noneSelected) {
+            //Display All
+            browserModel.getSelectedFontIcons().setAll(IkonSet.AllIkons());
+        } else {
 
-        GridView<FontIcon> ikonsGridView = new GridView<>();
+
+            List<List<FontIcon>> listList = IkonSet.allIkonsMap().entrySet()
+                    .stream()
+                    .filter(map -> selectedIkons.contains(map.getKey()))
+                    .map(Map.Entry::getValue)
+                    .collect(Collectors.toList());
+
+            List<FontIcon> selectedList = listList.stream().flatMap(List::stream).collect(Collectors.toList());
+
+            browserModel.getSelectedFontIcons().setAll(selectedList);
+
+        }
+
+    }
+
+
+    public void init() {
+
+        ikonsGridView = new GridView<>();
+        ikonsGridView.setHorizontalCellSpacing(16.0);
+        ikonsGridView.setVerticalCellSpacing(16.0);
         scrollPane.fitToHeightProperty().set(true);
         scrollPane.fitToWidthProperty().set(true);
         scrollPane.setContent(ikonsGridView);
@@ -136,20 +172,34 @@ public class BrowserView extends AnchorPane {
         });
 
 
+        browserModel.getSelectedFontIcons().setAll(IkonSet.AllIkons());
 
-        //todo> Display all icons
+        ikonsGridView.itemsProperty().bind(new ObservableValue<>() {
+            @Override
+            public void addListener(ChangeListener<? super ObservableList<FontIcon>> listener) {
 
-        browserModel.getelectedFontIcons().setAll(IkonSet.AllIkons());
+            }
 
-      /*  browserModel.getelectedFontIcons()
-                .forEach(fontIcon -> fontIcon.setOnMousePressed(event -> {
-                    browserModel.selectedIkonProperty().set((FontIcon)event.getTarget());
-        }));*/
+            @Override
+            public void removeListener(ChangeListener<? super ObservableList<FontIcon>> listener) {
 
-        ikonsGridView.setItems(FXCollections.observableArrayList(browserModel.getelectedFontIcons()));
+            }
 
+            @Override
+            public ObservableList<FontIcon> getValue() {
+                return browserModel.getSelectedFontIcons();
+            }
 
+            @Override
+            public void addListener(InvalidationListener listener) {
 
+            }
+
+            @Override
+            public void removeListener(InvalidationListener listener) {
+
+            }
+        });
 
 
     }
