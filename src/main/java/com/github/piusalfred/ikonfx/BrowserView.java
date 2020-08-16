@@ -79,7 +79,7 @@ public class BrowserView extends AnchorPane {
 
 
                     ObservableList<String> checkedItems = (ObservableList<String>) c.getList();
-                    
+
                     //Reset the search box
                     txtSearchBox.setText("");
 
@@ -93,7 +93,6 @@ public class BrowserView extends AnchorPane {
 
                     boolean finalNonSelected = nonSelected;
                     Platform.runLater(() -> updateGridView(checkedItems, finalNonSelected));
-
 
                 });
 
@@ -170,7 +169,6 @@ public class BrowserView extends AnchorPane {
                 lbIconLiteral.setText(target.getIconLiteral());
             }
         });
-
 
         browserModel.getSelectedFontIcons().setAll(IkonSet.AllIkons());
 

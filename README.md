@@ -11,3 +11,8 @@ The Ikonli Icons browser made for JavaFX developers
 ./ikonfx
 
 ```
+
+### screenshot from Manjaro KDE OS
+<p align="center">
+  <img src="screenshot.png?raw=true" alt="Screenshot"/>
+</p>
