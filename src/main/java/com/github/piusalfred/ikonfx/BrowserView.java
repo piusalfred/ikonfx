@@ -7,7 +7,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -24,11 +23,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class BrowserView extends AnchorPane {
+
+
 
     public final BrowserModel browserModel;
     final ObservableList<String> iconTypes = FXCollections.observableArrayList();
@@ -85,17 +85,7 @@ public class BrowserView extends AnchorPane {
 
                     ObservableList<String> checkedItems = (ObservableList<String>) c.getList();
 
-
-                    //Update the Browser todo
-
-                    boolean nonSelected = false;
-
-                    if (c.getList().isEmpty()) {
-                        nonSelected = true;
-                    }
-
-                    boolean finalNonSelected = nonSelected;
-                    Platform.runLater(() -> updateGridView(checkedItems, finalNonSelected, txtSearchBox.getText()));
+                    Platform.runLater(() -> updateGridView(checkedItems,txtSearchBox.getText()));
 
                 });
 
@@ -115,7 +105,6 @@ public class BrowserView extends AnchorPane {
         txtSearchBox.textProperty()
                 .addListener((observable, oldValue, newValue) ->
                         Platform.runLater(() -> updateGridView(cmbChooseIconType.getCheckModel().getCheckedItems(),
-                                false,
                                 newValue
                         )));
 
@@ -131,40 +120,44 @@ public class BrowserView extends AnchorPane {
 
 
     //fixme
-    private void updateGridView(ObservableList<String> selectedIkons, boolean noneSelected, String searchValue) {
+    private void updateGridView(ObservableList<String> selectedIkons,String searchValue) {
 
+        int sizeofTheList = selectedIkons.size();
         List<FontIcon> allIkons = IkonSet.AllIkons();
-        if (noneSelected) {
 
+        //Search Predicates
+        Predicate<FontIcon> matchIkonLiteral = fontIcon -> {
+            assert searchValue != null;
+            return fontIcon.getIconLiteral().contains(searchValue);
+        };
+
+        Predicate<FontIcon> matchIkonType = fontIcon ->
+        {
+            assert searchValue != null;
+            return fontIcon.getIconCode().getClass().getSimpleName().toLowerCase().contains(searchValue);
+        };
+
+
+        //All Icons to be considered
+        if(sizeofTheList <= 0){
+
+            //SearchValue is empty
             if (searchValue == null || searchValue.isEmpty() || searchValue.isBlank()) {
                 //Display All
                 browserModel.getSelectedFontIcons().setAll(allIkons);
             }
-            //filter a whole IkonSet and Just Come up with the search results
 
-
-            Predicate<FontIcon> matchIkonLiteral = fontIcon -> {
-                assert searchValue != null;
-                return fontIcon.getIconLiteral().contains(searchValue);
-            };
-
-            Predicate<FontIcon> matchIkonCode = fontIcon ->
-            {
-                assert searchValue != null;
-                return fontIcon.getIconCode().getDescription().contains(searchValue);
-            };
-
+            //search value is not empty
             List<FontIcon> filteredList = allIkons.
                     stream()
-                    .filter(matchIkonLiteral.or(matchIkonCode))
+                    .filter(matchIkonLiteral.or(matchIkonType))
                     .collect(Collectors.toList());
 
             //Display Filtered List
             browserModel.getSelectedFontIcons().setAll(filteredList);
+        }
 
-
-        } else {
-
+        if(sizeofTheList > 0) {
 
             List<List<FontIcon>> listList = IkonSet.allIkonsMap().entrySet()
                     .stream()
@@ -174,20 +167,16 @@ public class BrowserView extends AnchorPane {
 
             List<FontIcon> selectedList = listList.stream().flatMap(List::stream).collect(Collectors.toList());
 
-            Predicate<FontIcon> matchIkonLiteral = fontIcon -> {
-                assert searchValue != null;
-                return fontIcon.getIconLiteral().contains(searchValue);
-            };
 
-            Predicate<FontIcon> matchIkonCode = fontIcon ->
-            {
-                assert searchValue != null;
-                return fontIcon.getIconCode().getDescription().contains(searchValue);
-            };
+            //SearchValue is empty
+            if (searchValue == null || searchValue.isEmpty() || searchValue.isBlank()) {
+                browserModel.getSelectedFontIcons().setAll(selectedList);
+            }
 
+            //search is not empty
             List<FontIcon> filteredList = selectedList.
                     stream()
-                    .filter(matchIkonLiteral.or(matchIkonCode))
+                    .filter(matchIkonLiteral.or(matchIkonType))
                     .collect(Collectors.toList());
 
             browserModel.getSelectedFontIcons().setAll(filteredList);
