@@ -1,15 +1,13 @@
 package com.github.piusalfred.ikonfx;
 
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class BrowserModel {
+
     public static final double DEFAULT_WITH = 1000;
     public static final double DEFAULT_HEIGHT = 650;
     public static final String APP_STYLES = "/styles/main.css";
@@ -20,13 +18,8 @@ public class BrowserModel {
 
 
     private ObservableList<FontIcon> selectedFontIcons;
-
     private ObjectProperty<FontIcon> selectedIkonProperty;
-
     private ObjectProperty<Number> ikonSizeProperty;
-
-    private ObservableValue<ObservableList<FontIcon>> observableFontIconsList;
-
 
 
     public BrowserModel() {

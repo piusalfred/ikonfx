@@ -100,7 +100,6 @@ public class IkonSet {
 
         List<FontIcon> fontIcons = new ArrayList<>();
 
-
         for (Ikon value : enumSet) {
             FontIcon icon = FontIcon.of(value);
             icon.getStyleClass().setAll("font-icon");
@@ -116,7 +115,8 @@ public class IkonSet {
 
         return allFontIcons
                 .stream()
-                .collect(Collectors.groupingBy(fontIcon -> fontIcon.getIconCode().getClass().getSimpleName()));
+                .collect(Collectors.
+                        groupingBy(fontIcon -> fontIcon.getIconCode().getClass().getSimpleName()));
     }
 }
 

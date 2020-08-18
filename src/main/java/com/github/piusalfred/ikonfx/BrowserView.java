@@ -31,8 +31,11 @@ public class BrowserView extends AnchorPane {
 
 
     public final BrowserModel browserModel;
+
     final ObservableList<String> iconTypes = FXCollections.observableArrayList();
+
     public GridView<FontIcon> ikonsGridView;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -75,13 +78,9 @@ public class BrowserView extends AnchorPane {
         iconTypes.addAll(new ArrayList<>(IkonSet.allIkonsMap().keySet()));
 
         cmbChooseIconType.getItems().addAll(iconTypes);
-        //select first value
-        //  cmbChooseIconType.getCheckModel().check(0);
-
 
         cmbChooseIconType.getCheckModel().getCheckedItems()
                 .addListener((ListChangeListener<String>) c -> {
-
 
                     ObservableList<String> checkedItems = (ObservableList<String>) c.getList();
 
@@ -134,7 +133,7 @@ public class BrowserView extends AnchorPane {
         Predicate<FontIcon> matchIkonType = fontIcon ->
         {
             assert searchValue != null;
-            return fontIcon.getIconCode().getClass().getSimpleName().toLowerCase().contains(searchValue);
+            return fontIcon.getIconCode().getClass().getSimpleName().contains(searchValue);
         };
 
 

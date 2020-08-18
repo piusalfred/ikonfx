@@ -13,6 +13,7 @@ public class App extends Application {
      * Constructs a new {@code Application} instance.
      */
     public App() {
+
         super();
     }
 
@@ -76,7 +77,6 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-
         BrowserModel model = new BrowserModel();
         BrowserView view = new BrowserView(model);
         Scene scene = new Scene(view, BrowserModel.DEFAULT_WITH, BrowserModel.DEFAULT_HEIGHT);
@@ -89,6 +89,7 @@ public class App extends Application {
 
 
     public static void main(String[] args) {
-       launch(args);
+
+        launch(args);
     }
 }
