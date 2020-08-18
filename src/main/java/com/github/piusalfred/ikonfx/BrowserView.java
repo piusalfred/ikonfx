@@ -84,7 +84,7 @@ public class BrowserView extends AnchorPane {
 
                     ObservableList<String> checkedItems = (ObservableList<String>) c.getList();
 
-                    Platform.runLater(() -> updateGridView(checkedItems,txtSearchBox.getText()));
+                    Platform.runLater(() -> updateGridView(checkedItems,txtSearchBox.getText().toLowerCase()));
 
                 });
 
@@ -104,7 +104,7 @@ public class BrowserView extends AnchorPane {
         txtSearchBox.textProperty()
                 .addListener((observable, oldValue, newValue) ->
                         Platform.runLater(() -> updateGridView(cmbChooseIconType.getCheckModel().getCheckedItems(),
-                                newValue
+                                newValue.toLowerCase()
                         )));
 
 
@@ -133,7 +133,7 @@ public class BrowserView extends AnchorPane {
         Predicate<FontIcon> matchIkonType = fontIcon ->
         {
             assert searchValue != null;
-            return fontIcon.getIconCode().getClass().getSimpleName().contains(searchValue);
+            return fontIcon.getIconCode().getClass().getSimpleName().toLowerCase().contains(searchValue);
         };
 
 

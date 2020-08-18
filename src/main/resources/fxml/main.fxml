@@ -19,14 +19,14 @@
       <TextField fx:id="txtSearchBox" layoutX="25.0" layoutY="29.0" prefHeight="33.0" prefWidth="229.0" promptText="Search Icon Here" AnchorPane.leftAnchor="25.5" AnchorPane.rightAnchor="25.5" AnchorPane.topAnchor="8.0" />
       <Label fx:id="lbIconLiteral" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="501.0" text="Material Design" textAlignment="CENTER" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
       <Label fx:id="lbIconType" alignment="CENTER" contentDisplay="CENTER" layoutX="30.0" layoutY="532.0" text="Material Design" textAlignment="CENTER" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
-      <VBox alignment="CENTER" layoutY="109.0" spacing="24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <VBox alignment="CENTER" layoutY="109.0" spacing="24.0" AnchorPane.bottomAnchor="173.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="109.0">
          <padding>
-            <Insets bottom="8.0" top="16.0"/>
+            <Insets bottom="8.0" top="16.0" />
          </padding>
-         <FontIcon fx:id="fontIcon32" iconLiteral="mdi-account" iconSize="32" styleClass="font-icon-32"/>
-         <FontIcon fx:id="fontIcon48" iconLiteral="mdi-account" iconSize="48" styleClass="font-icon-48"/>
-         <FontIcon fx:id="fontIcon64" iconLiteral="mdi-account" iconSize="64" styleClass="font-icon-64"/>
-         <FontIcon fx:id="fontIcon128" iconLiteral="mdi-account" iconSize="128" styleClass="font-icon-128"/>
+         <FontIcon fx:id="fontIcon32" iconLiteral="mdi-account" iconSize="32" styleClass="font-icon-32" />
+         <FontIcon fx:id="fontIcon48" iconLiteral="mdi-account" iconSize="48" styleClass="font-icon-48" />
+         <FontIcon fx:id="fontIcon64" iconLiteral="mdi-account" iconSize="64" styleClass="font-icon-64" />
+         <FontIcon fx:id="fontIcon128" iconLiteral="mdi-account" iconSize="128" styleClass="font-icon-128" />
       </VBox>
       <ColorPicker layoutX="73.0" layoutY="566.0" AnchorPane.leftAnchor="73.0" AnchorPane.rightAnchor="62.0" />
       <ColorPicker layoutX="73.0" layoutY="610.0" AnchorPane.rightAnchor="62.0" />
