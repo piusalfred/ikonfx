@@ -263,10 +263,12 @@ public class BrowserView extends AnchorPane {
             String fontColor = ColorUtil.generateHexString(newValue);
             String backgroundColor = ColorUtil.generateHexString(backgroundColorPicker.getValue());
 
-            this.setStyle("-fx-primary-color: " +backgroundColor+ "; -fx-ikons-color: "+ fontColor+ ";");
-
             Preferences.userRoot().put(BrowserModel.IKONS_COLOUR, fontColor);
             Preferences.userRoot().put(BrowserModel.PRIMARY_COLOUR, backgroundColor);
+
+
+            this.setStyle("-fx-primary-color: " +backgroundColor+ "; -fx-ikons-color: "+ fontColor+ ";");
+
 
         });
 
@@ -274,11 +276,13 @@ public class BrowserView extends AnchorPane {
             String backgroundColor = ColorUtil.generateHexString(newValue);
             String fontColor = ColorUtil.generateHexString(fontColorPicker.getValue());
 
-            this.setStyle("-fx-primary-color: " +backgroundColor+ "; -fx-ikons-color: "+ fontColor+ ";");
-
 
             Preferences.userRoot().put(BrowserModel.IKONS_COLOUR, fontColor);
             Preferences.userRoot().put(BrowserModel.PRIMARY_COLOUR, backgroundColor);
+
+
+            this.setStyle("-fx-primary-color: " +backgroundColor+ "; -fx-ikons-color: "+ fontColor+ ";");
+
 
         });
 
