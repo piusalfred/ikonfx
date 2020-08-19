@@ -17,6 +17,14 @@ public class BrowserModel {
     public static final int DEFAULT_IKON_SIZE = 24;
 
 
+    ///PREFERENCES
+    public static String DEFAULT_PRIMARY_COLOUR = "#4D4D4D";
+    public static String DEFAULT_IKONS_COLOUR = "#CCCCCC";
+
+    public static final String PRIMARY_COLOUR = "PRIMARY_COLOR";
+    public static final String IKONS_COLOUR = "IKONS_COLOR";
+
+
     private ObservableList<FontIcon> selectedFontIcons;
     private ObjectProperty<FontIcon> selectedIkonProperty;
     private ObjectProperty<Number> ikonSizeProperty;

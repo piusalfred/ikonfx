@@ -9,11 +9,13 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.GridView;
 import org.kordamp.ikonli.feather.Feather;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
 public class BrowserView extends AnchorPane {
@@ -54,6 +57,14 @@ public class BrowserView extends AnchorPane {
     private FontIcon fontIcon48;
     @FXML
     private FontIcon fontIcon32;
+    @FXML
+    private AnchorPane sideView;
+
+    @FXML
+    private ColorPicker fontColorPicker;
+
+    @FXML
+    private ColorPicker backgroundColorPicker;
 
     public BrowserView(BrowserModel browserModel) {
 
@@ -72,6 +83,12 @@ public class BrowserView extends AnchorPane {
         this.getStylesheets().add(getClass().getResource(BrowserModel.APP_STYLES).toExternalForm());
 
         init();
+
+        fontColorPicker.valueProperty().set(Color.web(
+                Preferences.userRoot().get(BrowserModel.IKONS_COLOUR,BrowserModel.DEFAULT_IKONS_COLOUR)));
+
+        backgroundColorPicker.valueProperty().set(Color.web(
+                Preferences.userRoot().get(BrowserModel.PRIMARY_COLOUR,BrowserModel.DEFAULT_PRIMARY_COLOUR)));
 
 
         //iconTypes.add("All Types");
@@ -113,6 +130,9 @@ public class BrowserView extends AnchorPane {
         //labels initial display
         lbIconType.setText(browserModel.selectedIkonProperty().get().getIconCode().getClass().getSimpleName());
         lbIconLiteral.setText(browserModel.selectedIkonProperty().get().getIconLiteral());
+
+
+
 
 
     }
@@ -234,6 +254,32 @@ public class BrowserView extends AnchorPane {
             public void removeListener(InvalidationListener listener) {
 
             }
+        });
+
+
+        fontColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+
+            String fontColor = ColorUtil.generateHexString(newValue);
+            String backgroundColor = ColorUtil.generateHexString(backgroundColorPicker.getValue());
+
+            this.setStyle("-fx-primary-color: " +backgroundColor+ "; -fx-ikons-color: "+ fontColor+ ";");
+
+            Preferences.userRoot().put(BrowserModel.IKONS_COLOUR, fontColor);
+            Preferences.userRoot().put(BrowserModel.PRIMARY_COLOUR, backgroundColor);
+
+        });
+
+        backgroundColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String backgroundColor = ColorUtil.generateHexString(newValue);
+            String fontColor = ColorUtil.generateHexString(fontColorPicker.getValue());
+
+            this.setStyle("-fx-primary-color: " +backgroundColor+ "; -fx-ikons-color: "+ fontColor+ ";");
+
+
+            Preferences.userRoot().put(BrowserModel.IKONS_COLOUR, fontColor);
+            Preferences.userRoot().put(BrowserModel.PRIMARY_COLOUR, backgroundColor);
+
         });
 
 

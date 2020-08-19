@@ -1,9 +1,6 @@
-*{
-    -fx-primary-color: #282828;
-    -fx-ikons-color: #B8B826
-}
-
 .root{
+    -fx-primary-color: #4D4D4D;
+    -fx-ikons-color: #CCCCCC;
     -fx-background-color: -fx-primary-color;
 }
 

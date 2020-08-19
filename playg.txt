@@ -1,0 +1,9 @@
+root.setStyle("-fx-dark-text-color: navy; ...");
+
+ObjectProperty<Background> background = label.backgroundProperty();
+background.bind(Bindings.createObjectBinding(() -> {
+    BackgroundFill fill = new BackgroundFill(cp.getValue(), CornerRadii.EMPTY, Insets.EMPTY);
+    return new Background(fill);
+}, cp.valueProperty());
+
+
