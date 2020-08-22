@@ -85,10 +85,10 @@ public class BrowserView extends AnchorPane {
         init();
 
         fontColorPicker.valueProperty().set(Color.web(
-                Preferences.userRoot().get(BrowserModel.IKONS_COLOUR,BrowserModel.DEFAULT_IKONS_COLOUR)));
+                Preferences.userRoot().get(BrowserModel.FONTS_COLOR,BrowserModel.DEFAULT_FONTS_COLOUR)));
 
         backgroundColorPicker.valueProperty().set(Color.web(
-                Preferences.userRoot().get(BrowserModel.PRIMARY_COLOUR,BrowserModel.DEFAULT_PRIMARY_COLOUR)));
+                Preferences.userRoot().get(BrowserModel.BACKGROUND_COLOUR,BrowserModel.DEFAULT_BACKGROUND_COLOUR)));
 
 
         //iconTypes.add("All Types");
@@ -263,29 +263,37 @@ public class BrowserView extends AnchorPane {
             String fontColor = ColorUtil.generateHexString(newValue);
             String backgroundColor = ColorUtil.generateHexString(backgroundColorPicker.getValue());
 
-            Preferences.userRoot().put(BrowserModel.IKONS_COLOUR, fontColor);
-            Preferences.userRoot().put(BrowserModel.PRIMARY_COLOUR, backgroundColor);
-
-
-            this.setStyle("-fx-primary-color: " +backgroundColor+ "; -fx-ikons-color: "+ fontColor+ ";");
-
+            updateColors(fontColor,Preferences.userRoot()
+                    .get(BrowserModel.BACKGROUND_COLOUR, backgroundColor));
 
         });
 
         backgroundColorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            
+            
             String backgroundColor = ColorUtil.generateHexString(newValue);
             String fontColor = ColorUtil.generateHexString(fontColorPicker.getValue());
 
-
-            Preferences.userRoot().put(BrowserModel.IKONS_COLOUR, fontColor);
-            Preferences.userRoot().put(BrowserModel.PRIMARY_COLOUR, backgroundColor);
-
-
-            this.setStyle("-fx-primary-color: " +backgroundColor+ "; -fx-ikons-color: "+ fontColor+ ";");
+            updateColors(Preferences.userRoot().get(
+                    BrowserModel.FONTS_COLOR,fontColor
+            ),backgroundColor);
 
 
         });
 
+
+    }
+    
+    
+    void updateColors(String fontColor, String backgroundColor){
+
+     //   Platform.runLater(() -> {
+            Preferences.userRoot().put(BrowserModel.FONTS_COLOR, fontColor);
+            Preferences.userRoot().put(BrowserModel.BACKGROUND_COLOUR, backgroundColor);
+
+     //   });
+
+        this.setStyle("-fx-primary-color: " +backgroundColor+ "; -fx-ikons-color: "+ fontColor+ ";");
 
     }
 }

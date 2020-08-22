@@ -18,11 +18,11 @@ public class BrowserModel {
 
 
     ///PREFERENCES
-    public static String DEFAULT_PRIMARY_COLOUR = "#4D4D4D";
-    public static String DEFAULT_IKONS_COLOUR = "#CCCCCC";
+    public static String DEFAULT_BACKGROUND_COLOUR = "#4D4D4D";
+    public static String DEFAULT_FONTS_COLOUR = "#CCCCCC";
 
-    public static final String PRIMARY_COLOUR = "PRIMARY_COLOR";
-    public static final String IKONS_COLOUR = "IKONS_COLOR";
+    public static final String BACKGROUND_COLOUR = "BACKGROUND_COLOR";
+    public static final String FONTS_COLOR = "FONTS_COLOR";
 
 
     private ObservableList<FontIcon> selectedFontIcons;
