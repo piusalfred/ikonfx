@@ -83,7 +83,7 @@ public class App extends Application {
         Scene scene = new Scene(view, BrowserModel.DEFAULT_WITH, BrowserModel.DEFAULT_HEIGHT);
         primaryStage.setTitle(BrowserModel.APP_NAME + " " +  BrowserModel.APP_VERSION);
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+      //  primaryStage.setResizable(false);
      //   primaryStage.setOnCloseRequest(event -> handleExit());
         primaryStage.show();
 
