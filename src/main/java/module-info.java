@@ -37,7 +37,7 @@ module com.github.piusalfred.ikonfx {
     requires org.kordamp.ikonli.elusive;
     requires org.kordamp.ikonli.entypo;
     requires java.prefs;
-    requires javafx.web;
+
 
     opens com.github.piusalfred.ikonfx to javafx.fxml;
 

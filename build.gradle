@@ -1,11 +1,9 @@
+
 plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
     id 'org.beryx.jlink' version '2.21.2'
 }
-
-
-
 repositories {
     jcenter()
     mavenCentral()
@@ -13,11 +11,11 @@ repositories {
 
 javafx {
     version = "14.0.1"
+    modules = [ 'javafx.controls','javafx.fxml','javafx.base','javafx.graphics', 'javafx.media' ]
     modules = [
-    'javafx.controls','javafx.web','javafx.fxml','javafx.base','javafx.graphics', 'javafx.media'
+    'javafx.controls','javafx.fxml','javafx.base','javafx.graphics', 'javafx.media'
     ]
 }
-
 
 ext {
 
@@ -28,31 +26,10 @@ ext {
     appMainClass = "com.github.piusalfred.ikonfx.App"
 }
 
-
-
-
-/*jar{
-    manifest{
-        attributes(
-
-                'Main-Class':'com.github.piusalfred.ikonfx.App'
-
-        )
-    }
-    from{
-        configurations.compile.collect{
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-}*/
+mainClassName = "com.github.piusalfred.ikonfx.App"
 
 
 jlink {
-    targetPlatform("linux-x64") {
-        jdkHome = "/usr/lib/jvm/java-14-openjdk"
-        addOptions("--endian", "little")
-        addExtraModulePath("/home/masengwa/fx/javafx-jmods-14.0.1")
-    }
     imageZip = project.file("${buildDir}/distributions/${appPackaging}-${javafx.platform.classifier}.zip")
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
@@ -62,42 +39,18 @@ jlink {
             "--add-opens=javafx.graphics/javafx.scene=org.controlsfx.controls"
         ]
     }
-    
-   jpackage {
-        
-        jpackageHome = '/usr/lib/jvm/java-14-openjdk'
-        outputDir = 'packagingdir'
-        // imageOutputDir = file("$buildDir/my-packaging-image")
-        // installerOutputDir = file("$buildDir/my-packaging-installer")
-        imageName = 'ikonfx'
-       // imageOptions = ['--win-console']
-        skipInstaller = false
-        installerName = 'ikonfx'
-        installerType = 'deb'
-        installerOptions = [
-            '--description', 'The Ikonli Icons Browser',
-            '--copyright', 'Copyright 2020 Pius Alfred'
-        ]
-       
-    }
+
 }
 
-
-
 dependencies {
-
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
-
     // https://mvnrepository.com/artifact/org.controlsfx/controlsfx
     compile group: 'org.controlsfx', name: 'controlsfx', version: '11.0.2'
-
     // This dependency is used by the application.
     // implementation 'com.google.guava:guava:29.0-jre'
-
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-
     compile 'org.kordamp.ikonli:ikonli-javafx:11.5.0'
     compile 'org.kordamp.ikonli:ikonli-devicons-pack:11.5.0'
     compile 'org.kordamp.ikonli:ikonli-ionicons4-pack:11.5.0'
@@ -131,19 +84,14 @@ dependencies {
     compile 'org.kordamp.ikonli:ikonli-materialdesign-pack:11.5.0'
     compile 'org.kordamp.ikonli:ikonli-metrizeicons-pack:11.5.0'
     compile 'org.kordamp.ikonli:ikonli-openiconic-pack:11.5.0'
-
 }
 
-application
-        {
-
+application {
    mainModule ='com.github.piusalfred.ikonfx'
    mainClassName = 'com.github.piusalfred.ikonfx.App'
-
 }
 
 run {
-
     jvmArgs = [
             "--add-opens=javafx.controls/javafx.scene.control.skin=org.controlsfx.controls",
             "--add-opens=javafx.graphics/javafx.scene=org.controlsfx.controls"
@@ -151,7 +99,5 @@ run {
 }
 
 test {
-
     useJUnitPlatform()
 }
-
