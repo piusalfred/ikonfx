@@ -90,22 +90,10 @@ public class App extends Application {
     }
 
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
 
-        //Called when Platform.exit() is executed
-        //system.exit
-      /*  Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }));*/
 
         launch(args);
-    }
 
-   /* private void handleExit(){
-        Platform.exit();
-        System.exit(0);
-    }*/
+    }
 }

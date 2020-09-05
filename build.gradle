@@ -14,12 +14,13 @@ repositories {
 javafx {
     version = "14.0.1"
     modules = [
-    'javafx.controls','javafx.fxml','javafx.base','javafx.graphics', 'javafx.media'
+    'javafx.controls','javafx.web','javafx.fxml','javafx.base','javafx.graphics', 'javafx.media'
     ]
 }
 
+
 ext {
-   
+
    appName = "IkonFX"
     appLauncher = "ikonfx"
     appPackaging = "ikonfx"
@@ -27,7 +28,23 @@ ext {
     appMainClass = "com.github.piusalfred.ikonfx.App"
 }
 
-mainClassName = "com.github.piusalfred.ikonfx.App"
+
+
+
+/*jar{
+    manifest{
+        attributes(
+
+                'Main-Class':'com.github.piusalfred.ikonfx.App'
+
+        )
+    }
+    from{
+        configurations.compile.collect{
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}*/
 
 
 jlink {
@@ -59,7 +76,7 @@ jlink {
         installerType = 'deb'
         installerOptions = [
             '--description', 'The Ikonli Icons Browser',
-            '--copyright', 'Copyrigth 2015-2019 WALCZAK.IT'
+            '--copyright', 'Copyright 2020 Pius Alfred'
         ]
        
     }
@@ -117,7 +134,8 @@ dependencies {
 
 }
 
-application {
+application
+        {
 
    mainModule ='com.github.piusalfred.ikonfx'
    mainClassName = 'com.github.piusalfred.ikonfx.App'
